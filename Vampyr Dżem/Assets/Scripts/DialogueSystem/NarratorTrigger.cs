@@ -12,7 +12,8 @@ namespace PatataStudio.DialogueSystem
 		[SerializeField] private TextAsset inkJSON;
 
 		private bool playerInRange;
-
+		public bool setPosition;
+		public Vector2 nextPlayerPosition;
 		private void Awake()
 		{
 			playerInRange = false;
@@ -29,7 +30,9 @@ namespace PatataStudio.DialogueSystem
 				NarratorManager.instance.UpdateCombination("");
 				DialogueManager.instance.EnterDialogueMode(inkJSON);
 				DialogueManager.instance.continueDialogue = this.GetComponent<ContinueDialogue>();
-
+				if (setPosition)
+					GameObject.Find("Player").transform.position = nextPlayerPosition;
+				this.GetComponent<Collider2D>().enabled = false;
 			}
 			else
 			{
